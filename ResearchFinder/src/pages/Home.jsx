@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-slate-800">
@@ -8,22 +8,26 @@ const Home = () => {
         <h1 className="text-white text-2xl font-bold mb-4">Select Your Role</h1>
         <ul className="space-y-4">
           <li>
-            <Button
-              variant="contained"
-              className="bg-slate-100 text-black hover:bg-slate-200"
-              fullWidth
-            >
-              Student
-            </Button>
+            <Link to="/student">
+              <Button
+                variant="contained"
+                className="bg-slate-100 text-black hover:bg-slate-200"
+                fullWidth
+              >
+                Student
+              </Button>
+            </Link>
           </li>
           <li>
-            <Button
-              variant="contained"
-              className="bg-slate-100 text-black hover:bg-slate-200"
-              fullWidth
-            >
-              Faculty
-            </Button>
+            <Link to="/faculty">
+              <Button
+                variant="contained"
+                className="bg-slate-100 text-black hover:bg-slate-200"
+                fullWidth
+              >
+                Faculty
+              </Button>
+            </Link>
           </li>
         </ul>
       </div>

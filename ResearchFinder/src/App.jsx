@@ -1,17 +1,39 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Authenticator } from "@aws-amplify/ui-react";
 import Home from "./pages/Home";
-import "./index.css";
-const App = () => {
+import Login from "./pages/Login";
+import Student from "./pages/Student";
+import Faculty from "./pages/Faculty";
+import PrivateRoute from "./routes/PrivateRoutes";
+
+function App() {
   return (
-    <div>
-      <BrowserRouter>
+    <Authenticator.Provider>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/student"
+            element={
+              <PrivateRoute>
+                <Student />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/faculty"
+            element={
+              <PrivateRoute>
+                <Faculty />
+              </PrivateRoute>
+            }
+          />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </Router>
+    </Authenticator.Provider>
   );
-};
+}
 
 export default App;
