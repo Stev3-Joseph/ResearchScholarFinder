@@ -1,38 +1,51 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-const Home = () => {
+import { useNavigate } from "react-router-dom";
+import { Button } from "@aws-amplify/ui-react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
+
+const App = () => {
+  const navigate = useNavigate();
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+  const handleRoleSelection = (role) => {
+    navigate(`/login/${role}`);
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/");
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-800">
-      <div className="flex flex-col justify-center items-center shadow-lg bg-purple-700 h-[400px] w-[400px] rounded-lg p-6">
-        <h1 className="text-white text-2xl font-bold mb-4">Select Your Role</h1>
-        <ul className="space-y-4">
-          <li>
-            <Link to="/student">
-              <Button
-                variant="contained"
-                className="bg-slate-100 text-black hover:bg-slate-200"
-                fullWidth
-              >
-                Student
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to="/faculty">
-              <Button
-                variant="contained"
-                className="bg-slate-100 text-black hover:bg-slate-200"
-                fullWidth
+    <div>
+      {user ? (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+          <Button onClick={handleSignOut}>Sign Out</Button>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+          <h1 className="text-4xl font-bold mb-8">Welcome to Our Platform</h1>
+          <div className="bg-white p-8 rounded shadow-lg">
+            <h2 className="text-2xl font-semibold mb-6">Select Your Role</h2>
+            <div className="flex space-x-4">
+              <button
+                onClick={() => handleRoleSelection("faculty")}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
               >
                 Faculty
-              </Button>
-            </Link>
-          </li>
-        </ul>
-      </div>
+              </button>
+              <button
+                onClick={() => handleRoleSelection("student")}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+              >
+                Student
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default App;
