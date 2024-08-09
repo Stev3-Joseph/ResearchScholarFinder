@@ -11,7 +11,7 @@ const Faculty = () => {
       await signOut();
       navigate("/");
     } catch (error) {
-      console.error("Error signing out: ", error);
+      console.error("Error in  signing out: ", error);
     }
   };
 
