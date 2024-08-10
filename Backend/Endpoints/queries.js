@@ -1,6 +1,9 @@
 const getAllStudents = 'SELECT * FROM "Student"';
 
-const registerUser = 'INSERT INTO "Student" ("Email") VALUES ($1) RETURNING *';
+const registerStu = 'INSERT INTO "Student" ("Email") VALUES ($1) RETURNING *';
+
+const registerFaculty =
+  'INSERT INTO "Faculty" ("Email") VALUES ($1) RETURNING *';
 
 const getProfile = 'SELECT * FROM "Student" WHERE "Email" = $1';
 
@@ -9,7 +12,8 @@ const updateProfile =
 
 module.exports = {
   getAllStudents,
-  registerUser,
+  registerStu,
   getProfile,
   updateProfile,
+  registerFaculty,
 };

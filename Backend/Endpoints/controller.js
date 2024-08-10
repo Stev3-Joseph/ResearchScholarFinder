@@ -20,10 +20,21 @@ const testConnection = async (req, res) => {
   }
 };
 
-const register = async (req, res) => {
+const registerStu = async (req, res) => {
   const { email } = req.body;
   try {
-    const result = await pool.query(queries.registerUser, [email]);
+    const result = await pool.query(queries.registerStu, [email]);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error running query", err);
+    res.json({ error: err.message });
+  }
+};
+
+const registerFac = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const result = await pool.query(queries.registerFaculty, [email]);
     res.json(result.rows);
   } catch (err) {
     console.error("Error running query", err);
@@ -74,7 +85,8 @@ const updateProfile = async (req, res) => {
 module.exports = {
   getStudents,
   testConnection,
-  register,
+  registerStu,
+  registerFac,
   getProfile,
   updateProfile,
 };

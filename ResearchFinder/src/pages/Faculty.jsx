@@ -11,13 +11,16 @@ const Faculty = () => {
       await signOut();
       navigate("/");
     } catch (error) {
-      console.error("Error in  signing out: ", error);
+      console.error("Error in signing out: ", error);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-3xl font-bold mb-6">Faculty Page</h1>
+      <Button onClick={() => navigate("/facultyprofile")} className="mb-4">
+        Faculty Profile
+      </Button>
       <Button onClick={signOutHandler}>Sign Out</Button>
     </div>
   );

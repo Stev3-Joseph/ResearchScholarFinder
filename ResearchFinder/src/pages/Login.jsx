@@ -8,11 +8,19 @@ const Login = () => {
   const { role } = useParams();
   const { user } = useAuthenticator((context) => [context.user]);
 
-  const postUser = async (email) => {
+  const postStu = async (email) => {
     try {
-      await axios.post("http://localhost:3001/register", { email });
+      await axios.post("http://localhost:3001/registerStu", { email });
     } catch (error) {
       console.error("Error registering user: ", error);
+    }
+  };
+
+  const postFaculty = async (email) => {
+    try {
+      await axios.post("http://localhost:3001/registerFac", { email });
+    } catch (error) {
+      console.error("Error registering faculty: ", error);
     }
   };
 
@@ -20,7 +28,7 @@ const Login = () => {
     if (user) {
       const email = user.signInDetails.loginId;
       console.log("User signed in: ", email);
-      postUser(email);
+      role === "student" ? postStu(email) : postFaculty(email);
 
       navigate(role === "faculty" ? "/faculty" : "/student");
     }

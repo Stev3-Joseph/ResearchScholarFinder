@@ -8,7 +8,9 @@ app.get("/students", controller.getStudents);
 
 app.get("/test-connection", controller.testConnection);
 
-app.post("/register", controller.register);
+app.post("/registerStu", controller.registerStu);
+
+app.post("/registerFac", controller.registerFac);
 
 app.get("/getprofile", controller.getProfile);
 

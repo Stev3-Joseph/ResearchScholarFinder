@@ -7,8 +7,6 @@ import { Button } from "@aws-amplify/ui-react";
 const Student = () => {
   const navigate = useNavigate();
   const { signOut } = useAuthenticator();
-  const [students, setStudents] = useState([]);
-  const [error, setError] = useState(null);
 
   const signOutHandler = async () => {
     try {
