@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Faculty from "./pages/Faculty";
 import Student from "./pages/Student";
+import StudentProfile from "./pages/StudentProfile";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import "@aws-amplify/ui-react/styles.css";
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/login/:role" element={<Login />} />
           <Route path="/faculty" element={<Faculty />} />
           <Route path="/student" element={<Student />} />
+          <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

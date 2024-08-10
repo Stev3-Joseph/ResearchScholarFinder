@@ -8,4 +8,6 @@ app.get("/students", controller.getStudents);
 
 app.get("/test-connection", controller.testConnection);
 
+app.post("/register", controller.register);
+
 module.exports = app;
