@@ -16,4 +16,8 @@ app.get("/getprofile", controller.getProfile);
 
 app.put("/updateprofile", controller.updateProfile);
 
+app.put("/updatefacultyprofile", controller.updateFacultyProfile);
+
+app.get("/getfacultyprofile", controller.getFacultyProfile);
+
 module.exports = app;

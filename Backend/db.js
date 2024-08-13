@@ -1,14 +1,12 @@
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-  host: "database-1.cvq0gwqqiijv.us-east-1.rds.amazonaws.com",
+  host: "localhost",
   user: "postgres",
-  database: "ResearchDB",
-  password: "123postgress",
+  database: "researchfinder",
+  password: "postgres",
   port: 5432,
-  ssl: {
-    rejectUnauthorized: false, // This ignores SSL certificate verification, useful for testing
-  },
+ 
 });
 
 module.exports = pool;

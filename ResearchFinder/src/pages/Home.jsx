@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@aws-amplify/ui-react";
 import { useRole } from "../context/RoleContext";
 
-const App = () => {
+const Home = () => {
   const navigate = useNavigate();
   const { setRole } = useRole();
 
@@ -11,7 +11,6 @@ const App = () => {
     setRole(role);
     navigate(`/login/${role}`);
   };
-
 
   return (
     <div>
@@ -39,4 +38,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

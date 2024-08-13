@@ -4,16 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useRole } from "../context/RoleContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuthenticator((context) => [context.user]);
   const { role } = useRole();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user && role) {
+    if (role != null) {
       if (role === "student") {
-        navigate("/student");
+        navigate("/login/student");
       } else if (role === "faculty") {
-        navigate("/faculty");
+        navigate("login/faculty");
       } else {
         console.error("Invalid role:", role);
         navigate("/");
@@ -21,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
     }
   }, [user, role, navigate]);
 
-  return user && role ? null : children;
+  return role ? null : children;
 };
 
 export default ProtectedRoute;
