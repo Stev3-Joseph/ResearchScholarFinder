@@ -28,9 +28,8 @@ const Login = () => {
     if (user) {
       const email = user.signInDetails.loginId;
       console.log("User signed in: ", email);
-      role === "student" ? postStu(email) : postFaculty(email);
-
       navigate(role === "faculty" ? "/faculty" : "/student");
+      role === "student" ? postStu(email) : postFaculty(email);
     }
   }, [user, navigate]);
 

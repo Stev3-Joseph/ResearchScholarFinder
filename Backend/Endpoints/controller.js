@@ -91,17 +91,10 @@ const getFacultyProfile = async (req, res) => {
     console.error("Error running query", err);
     res.json({ error: err.message });
   }
-}
+};
 
 const updateFacultyProfile = async (req, res) => {
-  const {
-    Name,
-    School,
-    Degree,
-    AddEduQual,
-    Email,
-    
-  } = req.body;
+  const { Name, School, Degree, AddEduQual, Email } = req.body;
   try {
     const result = await pool.query(queries.updateFacultyProfile, [
       Email,
@@ -115,7 +108,47 @@ const updateFacultyProfile = async (req, res) => {
     console.error("Error running query", err);
     res.json({ error: err.message });
   }
-}
+};
+
+const addVacancy = async (req, res) => {
+  const {
+    FacultyName,
+    FacultyEmail,
+    ResearchTopic,
+    RequiredSkills,
+    Details,
+    PaidResearch,
+    MinCGPA,
+  } = req.body;
+  try {
+    const result = await pool.query(queries.addVacancy, [
+      FacultyName,
+      FacultyEmail,
+      ResearchTopic,
+      RequiredSkills,
+      Details,
+      PaidResearch,
+      MinCGPA,
+    ]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error running query", err);
+    res.json({ error: err.message });
+  }
+};
+
+
+const getVacancies = async (req, res) => {
+  const { email } = req.query;
+  try {
+    const result = await pool.query(queries.getVacancies, [email]);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error running query", err);
+    res.json({ error: err.message });
+  }
+};
+
 
 module.exports = {
   getStudents,
@@ -126,4 +159,6 @@ module.exports = {
   updateProfile,
   getFacultyProfile,
   updateFacultyProfile,
+  addVacancy,
+  getVacancies,
 };

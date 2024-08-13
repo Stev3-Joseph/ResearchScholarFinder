@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext } from "react";
 
 const RoleContext = createContext();
 
+
 export const RoleProvider = ({ children }) => {
   const [role, setRole] = useState(null);
 
@@ -13,3 +14,5 @@ export const RoleProvider = ({ children }) => {
 };
 
 export const useRole = () => useContext(RoleContext);
+
+

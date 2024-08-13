@@ -20,4 +20,10 @@ app.put("/updatefacultyprofile", controller.updateFacultyProfile);
 
 app.get("/getfacultyprofile", controller.getFacultyProfile);
 
+app.post("/addVacancy", controller.addVacancy);
+
+app.get("/getVacancies", controller.getVacancies);
+
+
+
 module.exports = app;
