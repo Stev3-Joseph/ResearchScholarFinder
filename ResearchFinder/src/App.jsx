@@ -21,6 +21,7 @@ import ProtectedRoute from "./routehandler/PrivateRoute";
 import { RoleProvider } from "./context/RoleContext";
 import FacultyProfile from "./pages/FacultyProfile";
 
+
 Amplify.configure(awsExports);
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
             <Route path="/login/:role" element={<Login />} />
             <Route path="/faculty" element={<Faculty />} />
             <Route path="/student" element={<Student />} />
-
+            
             <Route path="/facultyprofile" element={<FacultyProfile />} />
             <Route path="/studentprofile" element={<StudentProfile />} />
             <Route path="*" element={<Navigate to="/" />} />

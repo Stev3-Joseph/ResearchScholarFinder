@@ -1,11 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@aws-amplify/ui-react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuthenticator((context) => [context.user]);
+  const { signOut } = useAuthenticator();
+
+  const signOutHandler = async () => {
+    try {
+      await signOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Error in signing out: ", error);
+    }
+  };
 
   const handleRoleSelection = (role) => {
     // Check if the user is not authenticated
@@ -13,6 +23,8 @@ const Home = () => {
       navigate(`/login/${role}`);
     } else {
       // Optional: You could handle what happens if the user is already logged in
+      toast.error("User is already logged in. Please sign out first.");
+
       console.log("User is already logged in.");
     }
   };
@@ -36,6 +48,14 @@ const Home = () => {
             >
               Student
             </button>
+            {user && (
+              <button
+                onClick={signOutHandler}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Sign Out
+              </button>
+            )}
           </div>
         </div>
       </div>
