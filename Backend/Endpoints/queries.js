@@ -12,6 +12,8 @@ const updateProfile =
 
 const getFacultyProfile = 'SELECT * FROM "Faculty" WHERE "Email" = $1';
 
+const getVacancyStudent = 'SELECT * FROM "Vacancy"';
+
 const updateFacultyProfile =
   'UPDATE "Faculty" SET "Name" = $2, "School" = $3, "Degree" = $4, "AddEduQual" = $5 WHERE "Email" = $1 RETURNING *';
 
@@ -30,4 +32,5 @@ module.exports = {
   updateFacultyProfile,
   addVacancy,
   getVacancies,
+  getVacancyStudent,
 };

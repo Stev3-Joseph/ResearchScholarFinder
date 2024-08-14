@@ -137,7 +137,6 @@ const addVacancy = async (req, res) => {
   }
 };
 
-
 const getVacancies = async (req, res) => {
   const { email } = req.query;
   try {
@@ -149,6 +148,15 @@ const getVacancies = async (req, res) => {
   }
 };
 
+const getVacancyStudent = async (req, res) => {
+  try {
+    const result = await pool.query(queries.getVacancyStudent);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error running query", err);
+    res.json({ error: err.message });
+  }
+};
 
 module.exports = {
   getStudents,
@@ -161,4 +169,5 @@ module.exports = {
   updateFacultyProfile,
   addVacancy,
   getVacancies,
+  getVacancyStudent,
 };

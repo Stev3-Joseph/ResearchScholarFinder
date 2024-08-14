@@ -42,7 +42,7 @@ const Faculty = () => {
           Add Vacancy
         </Button>
         <Button onClick={handleViewVacancyClick} className="w-full text-left">
-          View Vacancy
+          My Vacancies
         </Button>
       </div>
 
@@ -59,6 +59,7 @@ const Faculty = () => {
         </div>
 
         {/* Render Selected Component */}
+        {activeComponent === null && <ViewVacancy />}
         {activeComponent === "addVacancy" && <AddVacancy />}
         {activeComponent === "viewVacancy" && <ViewVacancy />}
       </div>

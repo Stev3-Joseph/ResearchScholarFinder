@@ -1,15 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@aws-amplify/ui-react";
-import { useRole } from "../context/RoleContext";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { setRole } = useRole();
+  const { user } = useAuthenticator((context) => [context.user]);
 
   const handleRoleSelection = (role) => {
-    setRole(role);
-    navigate(`/login/${role}`);
+    // Check if the user is not authenticated
+    if (!user) {
+      navigate(`/login/${role}`);
+    } else {
+      // Optional: You could handle what happens if the user is already logged in
+      console.log("User is already logged in.");
+    }
   };
 
   return (

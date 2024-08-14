@@ -24,6 +24,8 @@ app.post("/addVacancy", controller.addVacancy);
 
 app.get("/getVacancies", controller.getVacancies);
 
+app.get("/showvacancystudent", controller.getVacancyStudent);
+
 
 
 module.exports = app;
