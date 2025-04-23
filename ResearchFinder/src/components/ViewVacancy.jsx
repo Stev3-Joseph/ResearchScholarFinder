@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import axios from "axios";
+import { API_URL } from "../../config.js"; // Ensure this path is correct
 
 const ViewVacancy = () => {
   const { user } = useAuthenticator((context) => [context.user]);
@@ -13,7 +14,7 @@ const ViewVacancy = () => {
   useEffect(() => {
     const fetchVacancies = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/getvacancies", {
+        const response = await axios.get(`${API_URL}/getVacancies`, {
           params: { email }, // Pass the email as a parameter
         });
         setVacancies(response.data); // Assuming response.data contains the vacancies

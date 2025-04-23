@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../../config"; // Ensure this path is correct
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Login = () => {
 
   const postStu = async (email) => {
     try {
-      await axios.post("http://localhost:3001/registerStu", { email });
+      await axios.post(`${API_URL}/registerStu`, { email });
     } catch (error) {
       console.error("Error registering user: ", error);
     }
@@ -18,7 +19,7 @@ const Login = () => {
 
   const postFaculty = async (email) => {
     try {
-      await axios.post("http://localhost:3001/registerFac", { email });
+      await axios.post(`${API_URL}/registerFac`, { email });
     } catch (error) {
       console.error("Error registering faculty: ", error);
     }

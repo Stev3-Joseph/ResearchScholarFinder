@@ -3,6 +3,9 @@ import axios from "axios";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../../config.js";
+
+// Check if the API_URL is being set correctly
 
 const FacultyProfile = () => {
   const { user } = useAuthenticator((context) => [context.user]);
@@ -20,7 +23,7 @@ const FacultyProfile = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/getfacultyprofile?email=${email}`
+          `${API_URL}/getfacultyprofile?email=${email}`
         );
         setProfile({ ...response.data, Email: email || "" });
       } catch (error) {
@@ -40,7 +43,7 @@ const FacultyProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("http://localhost:3001/updatefacultyprofile", profile);
+      await axios.put(`${API_URL}/updatefacultyprofile`, profile);
       toast.success("Profile updated successfully!");
     } catch (error) {
       toast.error("Error updating profile.");

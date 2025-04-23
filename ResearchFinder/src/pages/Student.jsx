@@ -10,6 +10,7 @@ import {
   Badge,
 } from "@aws-amplify/ui-react";
 import axios from "axios";
+import { API_URL } from "../../config"; // Ensure this path is correct
 
 const Student = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Student = () => {
     const fetchVacancies = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/showvacancystudent"
+          `${API_URL}/showvacancystudent`
         );
         setVacancies(response.data);
       } catch (error) {

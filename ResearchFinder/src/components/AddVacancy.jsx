@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthenticator, Button } from "@aws-amplify/ui-react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { API_URL } from "../../config.js"; // Ensure this path is correct
 
 const AddVacancy = () => {
   const { user } = useAuthenticator((context) => [context.user]);
@@ -21,12 +22,9 @@ const AddVacancy = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/getfacultyprofile",
-          {
-            params: { email }, // Assuming you're passing email to fetch profile
-          }
-        );
+        const response = await axios.get(`${API_URL}/getfacultyprofile`, {
+          params: { email }, // Assuming you're passing email to fetch profile
+        });
         // Set the FacultyName from the response
         if (response.data) {
           setVacancyDetails((prev) => ({
@@ -53,7 +51,7 @@ const AddVacancy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/addvacancy", {
+      await axios.post(`${API_URL}/addvacancy`, {
         ...vacancyDetails,
         FacultyEmail: email, // Use the logged-in user's email
       });
