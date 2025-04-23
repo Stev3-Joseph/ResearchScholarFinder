@@ -1,161 +1,103 @@
-const pool = require("../db");
-const queries = require("./queries");
+const database = require("../supabase"); // or import if using ESModules
+
 const getStudents = async (req, res) => {
-  try {
-    const result = await pool.query(queries.getAllStudents);
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Student").select("*");
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const testConnection = async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  // Supabase has no SELECT NOW(), so use a test query
+  const { data, error } = await database.from("Student").select("Email").limit(1);
+  if (error) return res.json({ error: error.message });
+  res.json({ message: "Connection successful", sample: data });
 };
 
 const registerStu = async (req, res) => {
   const { email } = req.body;
-  try {
-    const result = await pool.query(queries.registerStu, [email]);
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Student").insert({ Email: email }).select();
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const registerFac = async (req, res) => {
   const { email } = req.body;
-  try {
-    const result = await pool.query(queries.registerFaculty, [email]);
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Faculty").insert({ Email: email }).select();
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const getProfile = async (req, res) => {
   const { email } = req.query;
-  try {
-    const result = await pool.query(queries.getProfile, [email]);
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Student").select("*").eq("Email", email).single();
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const updateProfile = async (req, res) => {
   const {
-    Name,
-    School,
-    FieldOfInterest,
-    Experience,
-    RelatedWork,
-    CGPA,
-    RegistrationNumber,
-    Email,
+    Name, School, FieldOfInterest, Experience, RelatedWork,
+    CGPA, RegistrationNumber, Email
   } = req.body;
-  try {
-    const result = await pool.query(queries.updateProfile, [
-      Email,
-      Name,
-      School,
-      FieldOfInterest,
-      Experience,
-      RelatedWork,
-      CGPA,
-      RegistrationNumber,
-    ]);
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+
+  const { data, error } = await database
+    .from("Student")
+    .update({ Name, School, FieldOfInterest, Experience, RelatedWork, CGPA, RegistrationNumber })
+    .eq("Email", Email)
+    .select()
+    .single();
+
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const getFacultyProfile = async (req, res) => {
   const { email } = req.query;
-  try {
-    const result = await pool.query(queries.getFacultyProfile, [email]);
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Faculty").select("*").eq("Email", email).single();
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const updateFacultyProfile = async (req, res) => {
   const { Name, School, Degree, AddEduQual, Email } = req.body;
-  try {
-    const result = await pool.query(queries.updateFacultyProfile, [
-      Email,
-      Name,
-      School,
-      Degree,
-      AddEduQual,
-    ]);
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database
+    .from("Faculty")
+    .update({ Name, School, Degree, AddEduQual })
+    .eq("Email", Email)
+    .select()
+    .single();
+
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const addVacancy = async (req, res) => {
   const {
-    FacultyName,
-    FacultyEmail,
-    ResearchTopic,
-    RequiredSkills,
-    Details,
-    PaidResearch,
-    MinCGPA,
+    FacultyName, FacultyEmail, ResearchTopic, RequiredSkills,
+    Details, PaidResearch, MinCGPA
   } = req.body;
-  try {
-    const result = await pool.query(queries.addVacancy, [
-      FacultyName,
-      FacultyEmail,
-      ResearchTopic,
-      RequiredSkills,
-      Details,
-      PaidResearch,
-      MinCGPA,
-    ]);
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+
+  const { data, error } = await database
+    .from("Vacancy")
+    .insert({ FacultyName, Email: FacultyEmail, ResearchTopic, RequiredSkills, Details, PaidResearch, MinCGPA })
+    .select()
+    .single();
+
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const getVacancies = async (req, res) => {
   const { email } = req.query;
-  try {
-    const result = await pool.query(queries.getVacancies, [email]);
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+   const { data, error } = await database.from("Vacancy").select("*").eq("Email", email);
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 const getVacancyStudent = async (req, res) => {
-  try {
-    const result = await pool.query(queries.getVacancyStudent);
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error running query", err);
-    res.json({ error: err.message });
-  }
+  const { data, error } = await database.from("Vacancy").select("*");
+  if (error) return res.json({ error: error.message });
+  res.json(data);
 };
 
 module.exports = {
