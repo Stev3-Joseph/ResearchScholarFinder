@@ -6,4 +6,10 @@
     "express": "^4.21.0",
     "pg": "^8.12.0"
   }
+  {
+    "scripts": {
+      "start": "node server.js"
+    }
+  }
+  
 }
